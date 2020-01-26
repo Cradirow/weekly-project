@@ -101,10 +101,10 @@ void addTopic(){
                 if(str == "0") break;
                 outFile << str << endl;
             }
-            cout << "Complete!" << endl;
+            cout << "Complete!" << endl << endl;;
         }
     }
-//    system("clear");
+    //    system("clear");
 }
 
 void loadTopic(){
@@ -121,10 +121,11 @@ void loadTopic(){
     topics.clear();
     string in_line;
     while(getline(workingfile, in_line)){
-//        cout << in_line << endl;
+        //        cout << in_line << endl;
         topics.push_back(in_line);
     }
     workingfile.close();
+    cout << "Complete!" << endl << endl;
 }
 
 void printTopic(){
@@ -141,17 +142,41 @@ void printTopic(){
 }
 
 void selectTopic(){
+    vector<string> languages;
+    
+    ifstream workingfile("language.txt");
+    if(!workingfile.is_open()){
+        cout << "File doesn't exist!" << endl;
+        return;
+    }
+    
+    string in_line;
+    while(getline(workingfile, in_line)){
+        languages.push_back(in_line);
+    }
+    workingfile.close();
+    
+    string t, l;
     int size = topics.size();
     if(size == 0){
         cout << "There's no topic to select!" << endl;
+        return;
     }else{
         srand((unsigned int)time(0));
-        int num = rand()%size;
-        
-        cout << topics[num] << " is selected!" << endl;
+        t = topics[rand()%size];
     }
+    
+    size = languages.size();
+    if(size == 0){
+        cout << "There's no language to select!" << endl;
+        return;
+    }else{
+        srand((unsigned int)time(0));
+        l = languages[rand()%size];
+    }
+    
+    cout << l << " / " << t << " is selected!" << endl << endl;;
 }
 
-// unicode
-// getline 구현
+// unicode -> txt파일의 인코딩 문제
 // language, platform 추가
